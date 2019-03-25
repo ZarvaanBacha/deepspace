@@ -5,8 +5,8 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 package frc.robot;
-// this work?
 import edu.wpi.first.wpilibj.*;
+// test comment for my programmers
 public class Robot extends IterativeRobot {
 	ControlScheme TeleopControl = new ControlScheme();
 	
