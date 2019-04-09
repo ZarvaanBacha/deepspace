@@ -19,14 +19,14 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		TeleopControl.Drive();
-		TeleopControl.Elevator();
+		TeleopControl.Roller();
 		TeleopControl.Pneumatics();
 	}	
 	
 	@Override	
 	public void autonomousPeriodic() {
 		TeleopControl.Drive();
-		TeleopControl.Elevator();
+		TeleopControl.Roller();
 		TeleopControl.Pneumatics();
 	}
 

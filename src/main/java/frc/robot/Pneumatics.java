@@ -7,8 +7,9 @@ public class Pneumatics{
 	Boolean compressorStatus = false;
 	/*DoubleSolenoid S1  = new DoubleSolenoid(3,7);
 	//DoubleSolenoid S2 = new DoubleSolenoid(2,6);*/ // Uncomment for climb.
-	DoubleSolenoid hatchSlide  = new DoubleSolenoid(1,5);
-	DoubleSolenoid hatchHook = new DoubleSolenoid(0,4);
+	DoubleSolenoid rightLift  = new DoubleSolenoid(1,5);
+	DoubleSolenoid leftLift = new DoubleSolenoid(0,4);
+	DoubleSolenoid intakeFlap = new DoubleSolenoid(2,6);
 	
 	public void chargeCompressor() {
 		c.start();
@@ -28,30 +29,20 @@ public class Pneumatics{
 			chargeCompressor();
 		}
 	}
-	public void hatchSlideForward() {
-		hatchSlide.set(DoubleSolenoid.Value.kForward);
+	public void triggerLift(){
+		leftLift.set(DoubleSolenoid.Value.kForward);
+		rightLift.set(DoubleSolenoid.Value.kForward);
 	}
-	public void hatchSlideBackwards() {
-		hatchSlide.set(DoubleSolenoid.Value.kReverse);
+	public void triggerDrop(){
+		leftLift.set(DoubleSolenoid.Value.kReverse);
+		rightLift.set(DoubleSolenoid.Value.kReverse);
 	}
-	
-	public void hatchHookExpansion() {
-		hatchHook.set(DoubleSolenoid.Value.kForward);
+	public void intakeFlapLift(){
+		intakeFlap.set(DoubleSolenoid.Value.kForward);
 	}
-	
-	public void hatchHookCompression() {
-		hatchHook.set(DoubleSolenoid.Value.kReverse);
+
+	public void intakeFlapDrop(){
+		intakeFlap.set(DoubleSolenoid.Value.kReverse);
 	}
-	
-	/*public void triggerLift() {
-		S1.set(DoubleSolenoid.Value.kForward);
-		S2.set(DoubleSolenoid.Value.kForward);
-		
-	}
-	public void triggerDrop() {
-		S1.set(DoubleSolenoid.Value.kReverse);
-		S2.set(DoubleSolenoid.Value.kReverse);
-		
-	}*/ // Uncomment for Climb
 	
 }

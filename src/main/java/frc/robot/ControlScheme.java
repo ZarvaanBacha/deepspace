@@ -9,7 +9,7 @@ public class ControlScheme {
 	
 	XboxController Driver = new XboxController(0);// Assigns primary driver to controller
 	XboxController secondaryDriver = new XboxController(1);// Assigns secondary driver to controller
-	VictorSP elevator = new VictorSP(4); // Assigns Elevator Motor
+	VictorSP roller = new VictorSP(4); // Assigns Elevator Motor
 	VictorSP m_frontLeft = new VictorSP(0); // Assigns front left motor of drive train
 	// follows the same assignment as m_frontLeft
 	VictorSP m_rearLeft = new VictorSP(1);
@@ -49,37 +49,36 @@ public class ControlScheme {
 		}else if (Driver.getRawButtonPressed(5) == true) {
 			speed = 0.5;
 		}
-		m_drive.tankDrive(((leftPower * speed)*0.9), (rightPower * speed)); // Speed changed by a percentage on left side MECHANICAL ISSUES NOW REQUIRE PROGRAMMING HAHAHA JEFF
-
+		//m_drive.tankDrive(((leftPower * speed)*0.9), (rightPower * speed)); // Speed changed by a percentage on left side MECHANICAL ISSUES NOW REQUIRE PROGRAMMING HAHAHA JEFF
+		m_drive.tankDrive((leftPower * speed), (rightPower * speed));
 		
 		
 		
 	}
-	public void Elevator() {
-		if (secondaryDriver.getRawAxis(3) > 0) {
-			elevator.set(secondaryDriver.getRawAxis(3));
-		}
-		if (secondaryDriver.getRawAxis(2) > 0) {
-			elevator.set(-(secondaryDriver.getRawAxis(2)));
+	public void Roller() {
+		if ((Driver.getRawButtonPressed(2) == true) && (Driver.getRawButton(1) == false)){
+			roller.set(1);
+		}else if ((Driver.getRawButtonPressed(1) == true) && (Driver.getRawButton(2) == false)){
+			roller.set(-1);
+		}else if ((Driver.getRawButton(2) == false) && (Driver.getRawButton(1) == false)){
+			roller.set(0);
 		}
 	}
-	
 	public void Pneumatics() {
 		if (secondaryDriver.getRawButtonPressed(5) == true){
 			PneumaticControl.toggleCompressor();
 		}
-		if (secondaryDriver.getRawButtonPressed(4) == true) {
-			PneumaticControl.hatchSlideForward();
+		if (secondaryDriver.getRawButtonPressed(1) == true) {//lift
+			PneumaticControl.triggerDrop();
 		}
-		if (secondaryDriver.getRawButtonPressed(1) == true) {
-			PneumaticControl.hatchSlideBackwards();
+		if (secondaryDriver.getRawButtonPressed(4) == true) {//drop
+			PneumaticControl.triggerLift();
 		}
-		if (secondaryDriver.getRawButtonPressed(3) == true) {
-			PneumaticControl.hatchHookExpansion();
+		if (Driver.getRawButtonPressed(1) == true) {//drop
+			PneumaticControl.intakeFlapLift();
 		}
-		if (secondaryDriver.getRawButtonPressed(2) == true) {
-			PneumaticControl.hatchHookCompression();
+		if (Driver.getRawButtonPressed(2) == true) {//drop
+			PneumaticControl.intakeFlapDrop();
 		}
-		
 	}
 }
